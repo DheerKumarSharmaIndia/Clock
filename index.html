@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital and Analog Clock</title>
-    <style>
-        /* Analog Clock CSS */
-        /* Include the CSS from the previous example */
-
-        /* Digital Clock CSS */
-        #digital-clock {
-            font-size: 2em;
-        }
-    </style>
-    <script>
-        function displayDigitalTime() {
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-            document.getElementById('digital-clock').innerText = `${hours}:${minutes}:${seconds}`;
-        }
-        setInterval(displayDigitalTime, 1000);
-
-        function rotateClockHands() {
-            // Include the JavaScript from the previous example
-        }
-        setInterval(rotateClockHands, 1000);
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analog Clock</title>
+<style>
+  .clock {
+    width: 200px;
+    height: 200px;
+    border: 6px solid #333;
+    border-radius: 50%;
+    position: relative;
+  }
+  .hour, .minute, .second {
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background: #333;
+    transform-origin: 100%;
+    transition: all 0.5s;
+  }
+  .hour {
+    height: 6px;
+    background: #333;
+  }
+</style>
 </head>
 <body>
-    <h1>Analog Clock</h1>
-    <div class="clock">
-        <div class="hour"></div>
-        <div class="minute"></div>
-        <div class="second"></div>
-    </div>
-    <h1>Digital Clock</h1>
-    <div id="digital-clock"></div>
+<div class="clock">
+  <div class="hour" id="hour"></div>
+  <div class="minute" id="minute"></div>
+  <div class="second" id="second"></div>
+</div>
+<script>
+  function setClock() {
+    const now = new Date();
+    const seconds = now.getSeconds() * 6;
+    const minutes = now.getMinutes() * 6 + seconds / 60;
+    const hours = now.getHours() % 12 * 30 + minutes / 12;
+    document.getElementById('hour').style.transform = `rotate(${hours}deg)`;
+    document.getElementById('minute').style.transform = `rotate(${minutes}deg)`;
+    document.getElementById('second').style.transform = `rotate(${seconds}deg)`;
+  }
+  setInterval(setClock, 1000);
+  setClock();
+</script>
 </body>
 </html>
